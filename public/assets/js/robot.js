@@ -70,7 +70,7 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").empty();
         $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new robot
         $("#noImageYet").hide();
-        console.log("markLoggedIn: " + markLoggedIn);
+       //console.log("markLoggedIn: " + markLoggedIn);
         if (markLoggedIn === true) {
             $("#logoutButton").show();
             $("button#createRobot").show();
@@ -93,13 +93,13 @@ jQuery(document).ready(function( $ ){
         
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
-            console.log("robots array, from getAllData function", robots);
+           //console.log("robots array, from getAllData function", robots);
             for (i=0; i<robots.length; i++) {
                 allRobotIds.push (robots[i]._id);
                 allRobotNameswithImages.push(robots[i].name);
                 allRobotBios.push(robots[i].bio);
                 allRobotOrder.push(robots[i].order);
-                console.log("after just getting all robots, allRobotOrder: ", allRobotOrder);
+               //console.log("after just getting all robots, allRobotOrder: ", allRobotOrder);
                 //this is a list of all the robots without a main image
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
                     // The following should be written to the DOM ONLY when Mark is in edit mode
@@ -114,7 +114,7 @@ jQuery(document).ready(function( $ ){
                     //need to reorder these 4 arrays to match
                     //the correct order of robots, and also the allRobotImageIds array for the revealRobot function below
                 } else {
-                    console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
+                   //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db, need to be sorted like allRobotOrder
                     //console.log("robots[" + i + "].image.length: ", robots[i].image.length);
                     //make an array of the number of images for each robot
@@ -132,10 +132,10 @@ jQuery(document).ready(function( $ ){
                         // this was to "flatten" the array to become just an array of strings instead of array of array
                         wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
                         //console.log("wrongOrderIds: ", wrongOrderIds);
-                        console.log("wrongOrderIds.length: ", wrongOrderIds.length);
-                        console.log("allRobotNameswithImages.length: ", allRobotNameswithImages.length);
+                        //console.log("wrongOrderIds.length: ", wrongOrderIds.length);
+                        //console.log("allRobotNameswithImages.length: ", allRobotNameswithImages.length);
                         if (wrongOrderIds.length === allRobotNameswithImages.length) {
-                            console.log("wrongOrder.length = allRobotNameswithImages.length");
+                            //console.log("wrongOrder.length = allRobotNameswithImages.length");
                             setTimeout(waitOnPower, 3000);
                         }
                     });
@@ -148,7 +148,7 @@ jQuery(document).ready(function( $ ){
     //function for Mark to log in to see editable sections
     $(document).on("click", "#markserafin", function(event) {
         event.preventDefault();
-        console.log("Mark has clicked log in!");
+        //console.log("Mark has clicked log in!");
         $("#loginMark").modal("show");
     });
 
@@ -156,18 +156,18 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", "#submitPassword", function(event) {
         event.preventDefault();
         var password = $("#enterPass").val().trim();
-        console.log("password: " + password);
+        //console.log("password: " + password);
         if (password === "marsha") {
-            console.log("password is correct!");
+            //console.log("password is correct!");
             markLoggedIn = true;
-            console.log("markLoggedIn: " + markLoggedIn);
+            //console.log("markLoggedIn: " + markLoggedIn);
             $("#enterPass").val("");
             $("#loginMark").modal("hide");
             // now enter functions that are called to show Mark what he can edit.
             $("#logoutButton").show();
             $("button#createRobot").show();
         } else {
-            console.log("wrong password!");
+            //console.log("wrong password!");
             alert("wrong password!");
             $("#enterPass").val("");
         }
@@ -234,19 +234,19 @@ jQuery(document).ready(function( $ ){
         [sourceFourAllRobotOrder, numberOfImages] = [sourceFourAllRobotOrder, numberOfImages].map(a => indices.map(i => a[i]));
 
          //originals
-        console.log("Originals sourceFiveAllRobotOrder: ", sourceFiveAllRobotOrder);
-        console.log("Originals sourceAllRobotImageIds: ", sourceAllRobotImageIds);
-        console.log("Originals sourceAllRobotIds: ", sourceAllRobotIds);
-        console.log("Originals sourceAllRobotNameswithImages: ", sourceAllRobotNameswithImages);
-        console.log("Originals sourceAllRobotBios: ", sourceAllRobotBios);
-        console.log("Originals sourceNumberOfImages: ", sourceNumberOfImages);
+        //console.log("Originals sourceFiveAllRobotOrder: ", sourceFiveAllRobotOrder);
+        //console.log("Originals sourceAllRobotImageIds: ", sourceAllRobotImageIds);
+        //console.log("Originals sourceAllRobotIds: ", sourceAllRobotIds);
+        //console.log("Originals sourceAllRobotNameswithImages: ", sourceAllRobotNameswithImages);
+        //console.log("Originals sourceAllRobotBios: ", sourceAllRobotBios);
+        //console.log("Originals sourceNumberOfImages: ", sourceNumberOfImages);
         //sorted
-        console.log("sorted allRobotOrder: ", ...allRobotOrder);
-        console.log("sorted allRobotImageIds: ", ...allRobotImageIds);
-        console.log("sorted allRobotIds: ", ...allRobotIds);
-        console.log("sorted allRobotNameswithImages: ", ...allRobotNameswithImages);
-        console.log("sorted allRobotBios: ", ...allRobotBios);
-        console.log("sorted numberOfImages: ", ...numberOfImages);
+        //console.log("sorted allRobotOrder: ", ...allRobotOrder);
+        //console.log("sorted allRobotImageIds: ", ...allRobotImageIds);
+        //console.log("sorted allRobotIds: ", ...allRobotIds);
+        //console.log("sorted allRobotNameswithImages: ", ...allRobotNameswithImages);
+        //console.log("sorted allRobotBios: ", ...allRobotBios);
+        //console.log("sorted numberOfImages: ", ...numberOfImages);
 
 
         //final sort to get names to match first robot image
@@ -271,7 +271,7 @@ jQuery(document).ready(function( $ ){
                 ]);
         });
         
-        console.log("myNewNested: ", myNewNested);
+        //console.log("myNewNested: ", myNewNested);
         //console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
@@ -282,7 +282,7 @@ jQuery(document).ready(function( $ ){
         //     allRobotNameswithImages[i] + `</h4><br>` + myNewNested[2][i] + `</div>`);
         // }
         //<a href="#about" target="_self">About</a>
-        console.log("myNewNested[2].length: " + myNewNested[2].length);
+        //console.log("myNewNested[2].length: " + myNewNested[2].length);
         for (let i=0; i<myNewNested[2].length; i++) {
             let robotIcon = $("<div>");
             robotIcon.attr("onclick", "location.href='#specificRobot'");
@@ -306,8 +306,8 @@ jQuery(document).ready(function( $ ){
             robotIconArray.push(robotIcon);
         }
 
-        console.log("robotIconArry.length: " + robotIconArray.length);
-        console.log("robotIconArray[0]: ", robotIconArray[0]);
+        //console.log("robotIconArry.length: " + robotIconArray.length);
+        //console.log("robotIconArray[0]: ", robotIconArray[0]);
         
         for (let i=0; i<robotIconArray.length; i++) {
             $(`#currentRobots`).append(robotIconArray[i]);
@@ -319,7 +319,7 @@ jQuery(document).ready(function( $ ){
     
     $(document).on("click", "#robotImg", function(event) {
         event.preventDefault();
-        console.log("I clicked on a specific robot");
+        //console.log("I clicked on a specific robot");
         $("#specificRobot").empty();
         $("#editRobotName").empty();
         $("#editRobotName").show();
@@ -328,15 +328,15 @@ jQuery(document).ready(function( $ ){
 
         // retrieve the id of the robot whose image was clicked. Used in edits of name and bio.
         var thisRobotId = $(this).parent().data("robotid");
-        console.log("thisRobotId: ", thisRobotId);
+        //console.log("thisRobotId: ", thisRobotId);
 
         // retrieve the id of the clicked image from the db. Used in any of the edits of title and desc.
         thisImageId = $(this).attr("data-id");
-        console.log("thisImageId: ", thisImageId);
+        //console.log("thisImageId: ", thisImageId);
 
         //retrieve the name of the robot and write to DOM
         var name = $(this).parent().data("name");
-        console.log("name: ", name);
+        //console.log("name: ", name);
         $("#editRobotName").text(name);
         if (markLoggedIn === true) {
             $("#editRobotName").css({
@@ -354,7 +354,7 @@ jQuery(document).ready(function( $ ){
         specificRobotBio.attr("id", "editRobotBio");
         specificRobotBio.addClass("lightText");
         var bio = $(this).parent().data("bio");
-        console.log("bio: ", bio);
+       //console.log("bio: ", bio);
         specificRobotBio.text(bio);
         if (markLoggedIn === true) {
             specificRobotBio.css({
@@ -378,9 +378,9 @@ jQuery(document).ready(function( $ ){
         specificRobotOrder.attr("id", "editRobotOrder");
         specificRobotOrder.addClass("lightText");
         var order = $(this).parent().data("order");
-        console.log("order: ", order);
+       //console.log("order: ", order);
         specificRobotOrder.text(order);
-        console.log("building large image: typeof specificRobotOrder " + typeof specificRobotOrder);
+       //console.log("building large image: typeof specificRobotOrder " + typeof specificRobotOrder);
         if (markLoggedIn === true) {
             specificRobotOrder.css({
                 'border-style': 'solid',
@@ -401,8 +401,8 @@ jQuery(document).ready(function( $ ){
         
         //setting the currentRobotId to thisRobotId for retrieving additional pics later
         currentRobotId = thisRobotId;
-        console.log("id of thisRobotId: " + thisRobotId);
-        console.log("id of currentRobotId: ", currentRobotId);
+       //console.log("id of thisRobotId: " + thisRobotId);
+       //console.log("id of currentRobotId: ", currentRobotId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("bigRobotImage");
@@ -417,7 +417,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisImageId);
         var title = $(this).attr("title");
-        console.log("title: ", title);
+       //console.log("title: ", title);
         specificRobotPicTitle.text(title);
         if (markLoggedIn === true) {
             specificRobotPicTitle.css({
@@ -441,7 +441,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisImageId);
         var desc = $(this).data("desc");
-        console.log("desc: ", desc);
+       //console.log("desc: ", desc);
         specificRobotPicDesc.text(desc);
         if (markLoggedIn === true) {
             specificRobotPicDesc.css({
@@ -460,7 +460,7 @@ jQuery(document).ready(function( $ ){
 
         // currently adding the number of images
         var dataNoOfImages = $(this).parent().data("noofimages");
-        console.log("dataNoOfImages: " + dataNoOfImages);
+       //console.log("dataNoOfImages: " + dataNoOfImages);
         if (dataNoOfImages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
             ">Additional Views</button>");
@@ -475,7 +475,7 @@ jQuery(document).ready(function( $ ){
             // bring up the modal to enter info for a new image for the robot
             $("#newRobotImageModal").modal("show");
             currentRobotId = $(this).data("robotid"); //here is where I can get the robot id from the large picture
-            console.log("currentRobotId of big Image just clicked: " + currentRobotId);
+           //console.log("currentRobotId of big Image just clicked: " + currentRobotId);
         }
     });
 
@@ -485,15 +485,15 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         // hide the addtl images button
         $("#showAdditionalImages").hide();
-        console.log("currentRobotId: ", currentRobotId);
+       //console.log("currentRobotId: ", currentRobotId);
         // get the images, but don't print out the first one again
         $.getJSON("/getARobot/" + currentRobotId, function(currob) {
-            console.log("currob[0].image: ", currob[0].image);
+           //console.log("currob[0].image: ", currob[0].image);
             currob[0].image.forEach(innerImageForEach);
 
             function innerImageForEach(innerItem, innerIndex) { //innerItem here is id of images
                 if (innerIndex !== 0){ //excluding the first image id because we don't need to show the main image again
-                    console.log("THIS INNER image, innerIndex and innerItem: " + innerIndex + " and " + innerItem);
+                   //console.log("THIS INNER image, innerIndex and innerItem: " + innerIndex + " and " + innerItem);
                     $.ajax({
                     method: "GET",
                     url: "/getImages/" + innerItem
@@ -503,7 +503,7 @@ jQuery(document).ready(function( $ ){
                         // change the id from robotImg to addtlImg. It was robotImg from db retrieval in the api-routes file.
                         $("div#additionalImages img").attr("id", "addtlImg");
                         // can I just add the attribute for the currentRobotId here?
-                        console.log("inside innerImageForEach large addtl images creation, currentRobotId: " + currentRobotId);
+                       //console.log("inside innerImageForEach large addtl images creation, currentRobotId: " + currentRobotId);
                         $("div#additionalImages img").attr("data-robotid", currentRobotId);
                         // add the onclick event to go to the large additional images div below
                         $("div#additionalImages img").attr("onclick", "location.href='#largeAddtlImages'");
@@ -517,14 +517,14 @@ jQuery(document).ready(function( $ ){
     // click on one of the additional images icons, and display the large verion alone with it's title and description
     $(document).on("click", "#addtlImg", function(event) {
         event.preventDefault();
-        console.log("I clicked on an additional image");
+       //console.log("I clicked on an additional image");
         $("#largeAddtlImages").empty();
         
         // loads the additional image that was just clicked, as wide as the screen
         var thisDataId = $(this).data("id");
         var thisRobotId = $(this).data("robotid");  // or, is it .attr("data-robotid")?
-        console.log("image data-id of the clicked pic (id of the image): ", thisDataId);
-        console.log("robot data-id of the clicked pic (id of the robot): ", thisRobotId);
+       //console.log("image data-id of the clicked pic (id of the image): ", thisDataId);
+       //console.log("robot data-id of the clicked pic (id of the robot): ", thisRobotId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("addtlBigRobotImage");
@@ -542,9 +542,9 @@ jQuery(document).ready(function( $ ){
         specificRobotPicTitle.addClass("lightText");
         specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisDataId);
-        console.log("title before: ", title);
+       //console.log("title before: ", title);
         var title = $(this).attr("title");
-        console.log("title after: ", title);
+       //console.log("title after: ", title);
         specificRobotPicTitle.text(title);
         if (markLoggedIn === true) {
             specificRobotPicTitle.css({
@@ -567,9 +567,9 @@ jQuery(document).ready(function( $ ){
         specificRobotPicDesc.addClass("descText");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisDataId);
-        console.log("desc before: ", desc);
+       //console.log("desc before: ", desc);
         var desc = $(this).data("desc");
-        console.log("desc after: ", desc);
+       //console.log("desc after: ", desc);
         specificRobotPicDesc.text(desc);
         if (markLoggedIn === true) {
             specificRobotPicDesc.css({
@@ -592,20 +592,20 @@ jQuery(document).ready(function( $ ){
     // along with the id number in the robot db
     $(document).on("click", "#deleteImage", function(event) {
         event.preventDefault();
-        console.log("Mark clicked the delete image button!");
+       //console.log("Mark clicked the delete image button!");
         var thisImageId = $(this).data("id");
         currentImageId = thisImageId;
         var thisRobotId = $(this).data("robotid");
         currentRobotId = thisRobotId;
-        console.log("in deleteImage function, currentImageId: ", currentImageId);
-        console.log("in deleteImage function, currentRobotId: ", currentRobotId);
+       //console.log("in deleteImage function, currentImageId: ", currentImageId);
+       //console.log("in deleteImage function, currentRobotId: ", currentRobotId);
         // DELETE this specific image from the Image collection
         $.ajax({
             method: "DELETE",
             url: "/image/delete/" + currentImageId
         })
         .then (function(dbImage) {
-            console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
+           //console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
             // and then delete (or "pull") the reference to that just deleted document from the robot document
             $.ajax({
                 method: "POST",
@@ -613,7 +613,7 @@ jQuery(document).ready(function( $ ){
                 data: {imageId: currentImageId}
             })
             .then (function(dbRobot){
-              console.log("dbRobot after POST /robot/removeRef/id: ", dbRobot);
+             //console.log("dbRobot after POST /robot/removeRef/id: ", dbRobot);
                 getAllData();
             });
         });
@@ -624,7 +624,7 @@ jQuery(document).ready(function( $ ){
     // the /getARobot/ route will get the array of images to be removed.
     $(document).on("click", "#deleteRobot", function(event) {
         event.preventDefault();
-        console.log("Mark clicked the Delete Robot Button!");
+       //console.log("Mark clicked the Delete Robot Button!");
         let text = "Are you sure?!\nEither OK or Cancel.";
         if (confirm(text) == true) {
             $("#editNameForm").modal("hide");
@@ -640,30 +640,30 @@ jQuery(document).ready(function( $ ){
     // the robot that brings up the #editRobotName modal, and the Delete Robot button
     function deleteRobot() {
         $.getJSON("/getARobot/" + currentRobotId, function(currob) {
-            console.log("currentRobotId: ", currentRobotId);
-            console.log("currob[0]: ", currob[0]);
-            console.log("currob[0].image: ", currob[0].image);
-            console.log("currob[0].image.length: ", currob[0].image.length);
+           //console.log("currentRobotId: ", currentRobotId);
+           //console.log("currob[0]: ", currob[0]);
+           //console.log("currob[0].image: ", currob[0].image);
+           //console.log("currob[0].image.length: ", currob[0].image.length);
        
             // loop through the array of images to delete the id's from the Image collection
             for (i = 0; i < currob[0].image.length; i++) {
-                console.log("in loop: currob[0].image[" + i + "]: ", currob[0].image[i]);
+               //console.log("in loop: currob[0].image[" + i + "]: ", currob[0].image[i]);
                 $.ajax({
                     method: "DELETE",
                     url: "/image/delete/" + currob[0].image[i]
                 })
                 .then (function(dbImage) {
-                    console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
+                   //console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
                 });
             } 
             // now remove the entire robot from the robot db collection
-            console.log(" correct id of robot to be removed? currob[0]._id: ", currob[0]._id);
+           //console.log(" correct id of robot to be removed? currob[0]._id: ", currob[0]._id);
             $.ajax({
                 method: "DELETE",
                 url: "/robot/delete/" + currentRobotId
             })
                 .then (function(dbRobot) {
-                    console.log("after delete the robot, dbRobot: ", dbRobot);
+                   //console.log("after delete the robot, dbRobot: ", dbRobot);
                 });
                 getAllData();
         });
@@ -673,8 +673,8 @@ jQuery(document).ready(function( $ ){
     // this function happens when Mark clicks the submit a new robot button, info is stored in the appropriate robot db
     $(document).on("click", "#submitNewRobot", function(event) {
         event.preventDefault();
-        console.log("name: ", $("#robotNameInput").val().trim());
-        console.log("bio: ", $("#robotBioInput").val().trim());
+       //console.log("name: ", $("#robotNameInput").val().trim());
+       //console.log("bio: ", $("#robotBioInput").val().trim());
         var name = $("#robotNameInput").val().trim();
         var bio = $("#robotBioInput").val().trim();
         var order = $("#robotOrderInput").val().trim();
@@ -694,9 +694,9 @@ jQuery(document).ready(function( $ ){
             }
         })
         .then(function(dataRobot) {
-            console.log("Creation of new robot (dataRobot) in robot.js: ", dataRobot);
+           //console.log("Creation of new robot (dataRobot) in robot.js: ", dataRobot);
             // save id of current (last created) robot
-            console.log("currentRobotId: " + dataRobot._id);
+           //console.log("currentRobotId: " + dataRobot._id);
             currentRobotId = dataRobot._id;
             // empty out the input fields
             $("#robotNameInput").val("");
@@ -725,7 +725,7 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", ".noImage", function(event) {
         event.preventDefault();
         currentRobotId = $(this).data("robotid");
-        console.log("inside noImage class click, currentRobotId: ", currentRobotId);
+       //console.log("inside noImage class click, currentRobotId: ", currentRobotId);
         // make an ajax call for the robot to be populated
             $.ajax({
                 method: "GET",
@@ -733,7 +733,7 @@ jQuery(document).ready(function( $ ){
                 })
                 .then(function(dataAddImage) {
                 // this sets up the fields populated to receive robot name and image data
-                console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
+               //console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
                 });
         });
 
@@ -746,7 +746,7 @@ jQuery(document).ready(function( $ ){
         $("#newRobotImageModal").modal("show");
         $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new robot
         //currentRobotId is already set from Mark entering a new robot
-        console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
+       //console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
         // make an ajax call for the robot to be populated
             $.ajax({
                 method: "GET",
@@ -754,7 +754,7 @@ jQuery(document).ready(function( $ ){
                 })
                 .then(function(dataAddImage) {
                 // this sets up the fields populated to receive robot name and image data
-                console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
+               //console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
                 });
     }
     });
@@ -763,7 +763,7 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", "#submitNewRobotImage", function(event) {
         event.preventDefault();
         //get form from html
-        console.log("inside 'submitNewRobotImage' click, currentRobotId: ", currentRobotId);
+       //console.log("inside 'submitNewRobotImage' click, currentRobotId: ", currentRobotId);
         var imageform = $("#RobotImageInputForm")[0];
         // Create an FormData object called imageData
         var imageData = new FormData(imageform);
@@ -776,7 +776,7 @@ jQuery(document).ready(function( $ ){
           contentType: false
         })
         .then(function(robotdb) {
-            console.log("after .then for submitting an image, robotdb: ", robotdb);
+           //console.log("after .then for submitting an image, robotdb: ", robotdb);
             // robotdb here is the robot document with the new image data
             // then hide this modal
             $("#title").val("");
@@ -799,10 +799,10 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         if (markLoggedIn === true) {
             var thisRobotName = $(this).text();
-            console.log("thisRobotName: ", thisRobotName);
+           //console.log("thisRobotName: ", thisRobotName);
             thisRobotId = $(this).attr("data-id");
             currentRobotId = thisRobotId;  // currentRobotId is in all scope
-            console.log("thisRobotId: ", thisRobotId);
+           //console.log("thisRobotId: ", thisRobotId);
             // show the modal to edit the current robot name
             $("#editNameForm").modal("show");
             $("#editName").val(thisRobotName);
@@ -815,9 +815,9 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         if (markLoggedIn === true) {
             var thisRobotBio = $(this).text();
-            console.log("thisRobotBio: ", thisRobotBio);
+           //console.log("thisRobotBio: ", thisRobotBio);
             thisRobotId = $(this).attr("data-id");
-            console.log("thisRobotId: ", thisRobotId);
+           //console.log("thisRobotId: ", thisRobotId);
             // show the modal to edit the current robot Bio
             $("#editBioForm").modal("show");
             $("#editBio").val(thisRobotBio);
@@ -830,19 +830,19 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         if (markLoggedIn === true) {
             var thisRobotOrder = $(this).text()
-            console.log("first thisRobotOrder after (this): ", thisRobotOrder);
-            console.log("typeof before parseInt(thisRobotOrder): " + typeof thisRobotOrder);
+           //console.log("first thisRobotOrder after (this): ", thisRobotOrder);
+           //console.log("typeof before parseInt(thisRobotOrder): " + typeof thisRobotOrder);
             thisRobotOrder = parseInt(thisRobotOrder);
-            console.log("typeof after parseInt(thisRobotOrder): " + typeof thisRobotOrder);
-            console.log("after parseInt, thisRobotOrder: ", thisRobotOrder);
+           //console.log("typeof after parseInt(thisRobotOrder): " + typeof thisRobotOrder);
+           //console.log("after parseInt, thisRobotOrder: ", thisRobotOrder);
             var testy = "100";
-            console.log("first testy: ", testy);
-            console.log("typeof before parseInt(testy): " + typeof testy);
+           //console.log("first testy: ", testy);
+           //console.log("typeof before parseInt(testy): " + typeof testy);
             testy = parseInt(testy);
-            console.log("typeof after parseInt(testy): " + typeof testy);
-            console.log("after parseInt, testy: ", testy);
+           //console.log("typeof after parseInt(testy): " + typeof testy);
+           //console.log("after parseInt, testy: ", testy);
             thisRobotId = $(this).attr("data-id");
-            console.log("thisRobotId: ", thisRobotId);
+           //console.log("thisRobotId: ", thisRobotId);
             // show the modal to edit the current robot Bio
             $("#editOrderForm").modal("show");
             $("#editOrder").val(thisRobotOrder);
@@ -855,9 +855,9 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         if (markLoggedIn === true) {
             var thisTitle = $(this).text();
-            console.log("thisTitle: " + thisTitle);
+           //console.log("thisTitle: " + thisTitle);
             thisImageId = $(this).attr("data-id");
-            console.log("the id of the image for this title: ", thisImageId);
+           //console.log("the id of the image for this title: ", thisImageId);
             // show the modal to edit the current title
             $("#editTitleForm").modal("show");
             $("#editTitle").val(thisTitle);
@@ -870,9 +870,9 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         if (markLoggedIn === true) {
             var thisDesc = $(this).text();
-            console.log("thisDesc: " + thisDesc);
+           //console.log("thisDesc: " + thisDesc);
             thisImageId = $(this).attr("data-id");
-            console.log("the id of the image for this description: ", thisImageId);
+           //console.log("the id of the image for this description: ", thisImageId);
             // show the div to edit the current title
             $("#editDescForm").modal("show");
             $("#editDesc").val(thisDesc);
@@ -890,7 +890,7 @@ jQuery(document).ready(function( $ ){
         }
         })
         .then(function(editedRobotdb) {
-            console.log("Robotdb after Name edit (editedRobotdb) in robot.js: ", editedRobotdb);
+           //console.log("Robotdb after Name edit (editedRobotdb) in robot.js: ", editedRobotdb);
             // empty out the input fields
             $("#editName").val("");
             // then hide the div to edit and this modal
@@ -911,7 +911,7 @@ jQuery(document).ready(function( $ ){
         }
         })
         .then(function(editedRobotdb) {
-            console.log("Robotdb after Bio edit (editedRobotdb) in robot.js: ", editedRobotdb);
+           //console.log("Robotdb after Bio edit (editedRobotdb) in robot.js: ", editedRobotdb);
             // empty out the input fields
             $("#editBio").val("");
             // then hide the div to edit and this modal
@@ -932,7 +932,7 @@ jQuery(document).ready(function( $ ){
         }
         })
         .then(function(editedRobotdb) {
-            console.log("Robotdb after Order edit (editedRobotdb) in robot.js: ", editedRobotdb);
+           //console.log("Robotdb after Order edit (editedRobotdb) in robot.js: ", editedRobotdb);
             // empty out the input fields
             $("#editOrder").val("");
             // then hide the div to edit and this modal
